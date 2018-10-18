@@ -1,12 +1,8 @@
 ﻿using CopaFilmes.Models;
-using Prism.Commands;
-using Prism.Mvvm;
+using CopaFilmes.Utils;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using Xamarin.Forms;
 
 namespace CopaFilmes.ViewModels
 {
@@ -20,7 +16,8 @@ namespace CopaFilmes.ViewModels
             set { SetProperty(ref filmes, value); }
         }
 
-        private List<Filmes> temp;
+        public Filmes FirstMoive { get; set; }
+        public Filmes SecondMovie { get; set; }
 
         public ResultadoPageViewModel(INavigationService navigationService)
             : base(navigationService)
@@ -34,30 +31,86 @@ namespace CopaFilmes.ViewModels
 
             Filmes = (ObservableCollection<Filmes>)parameters["filmes"];
 
-            CompareMovies();
+            Played01();
         }
 
-        void CompareMovies()
+        void Played01()
         {
-            temp = new List<Filmes>();
+            var firstMoved = new List<Filmes>();
             var qtd = Filmes.Count - 1;
 
             for (int i = 0; i <= (Filmes.Count / 2) - 1; i++)
             {
                 if (Filmes[i].nota > Filmes[qtd - i].nota)
                 {
-                    temp.Add(Filmes[i]);
+                    firstMoved.Add(Filmes[i]);
                 }
                 else if (Filmes[i].nota < Filmes[qtd - i].nota)
                 {
-                    temp.Add(Filmes[qtd - i]);
+                    firstMoved.Add(Filmes[qtd - i]);
                 }
                 else
                 {
                     if (string.Compare(Filmes[i].titulo, Filmes[qtd - i].titulo) == -1)
-                        temp.Add(Filmes[i]);
+                        firstMoved.Add(Filmes[i]);
                     if (string.Compare(Filmes[i].titulo, Filmes[qtd - i].titulo) == 1)
-                        temp.Add(Filmes[qtd - 1]);
+                        firstMoved.Add(Filmes[qtd - 1]);
+                }
+            }
+
+            Played02(firstMoved);
+        }
+
+        void Played02(List<Filmes> temp)
+        {
+            var secondMoved = new List<Filmes>();
+
+            for (int i = 0; i <= (temp.Count / 2); i += 2)
+            {
+                if (temp[i].nota > temp[i + 1].nota)
+                {
+                    secondMoved.Add(temp[i]);
+                }
+                else if (temp[i].nota < temp[i + 1].nota)
+                {
+                    secondMoved.Add(temp[i + 1]);
+                }
+                else
+                {
+                    if (string.Compare(temp[i].titulo, temp[i + 1].titulo) == -1)
+                        secondMoved.Add(temp[i]);
+                    if (string.Compare(temp[i].titulo, temp[i + 1].titulo) == 1)
+                        secondMoved.Add(temp[i + 1]);
+                }
+            }
+
+            Played03(secondMoved);
+        }
+
+        void Played03(List<Filmes> temp)
+        {
+            Filmes.Clear();
+            if (temp[0].nota > temp[1].nota)
+            {
+                FirstMoive = temp[0];
+                SecondMovie = temp[1];
+            }
+            else if (temp[0].nota < temp[1].nota)
+            {
+                FirstMoive = temp[1];
+                SecondMovie = temp[0];
+            }
+            else
+            {
+                if (string.Compare(temp[0].titulo, temp[1].titulo) == -1)
+                {
+                    FirstMoive = temp[0];
+                    SecondMovie = temp[1];
+                }
+                if (string.Compare(temp[0].titulo, temp[1].titulo) == 1)
+                {
+                    FirstMoive = temp[1];
+                    SecondMovie = temp[0];
                 }
             }
         }

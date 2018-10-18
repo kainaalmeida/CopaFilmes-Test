@@ -4,6 +4,38 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="CopaFilmes.Views.ResultadoPage"
-             Title="Resultado">
-  
+             Title="Resultado"
+             BackgroundColor="#a8a8a8">
+
+    <StackLayout Padding="20">
+
+        <Grid RowSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>                
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Column="0" BackgroundColor="#6e6e6e" Margin="0,0,-6,0">
+                <Label Text="1º" TextColor="White" FontSize="Large" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout Grid.Column="1" BackgroundColor="White" Padding="5">
+                <Label Text="{Binding FirstMoive.titulo}" FontSize="Medium" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Grid.Column="0" Grid.Row="1" BackgroundColor="#6e6e6e" Margin="0,0,-6,0">
+                <Label Text="2º" TextColor="White" FontSize="Large" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout Grid.Column="1" Grid.Row="1" BackgroundColor="White" Padding="5">
+                <Label Text="{Binding SecondMovie.titulo}" FontSize="Medium" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+
+        </Grid>
+        
+    </StackLayout>
+    
+    
 </ContentPage>
