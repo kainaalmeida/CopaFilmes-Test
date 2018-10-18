@@ -35,6 +35,7 @@ namespace CopaFilmes
             containerRegistry.Register<IService,Service>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<ResultadoPage, ResultadoPageViewModel>();
         }
     }
 }

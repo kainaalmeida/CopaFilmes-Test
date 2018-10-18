@@ -1,5 +1,6 @@
 ﻿using CopaFilmes.Models;
 using CopaFilmes.Services.Abstract;
+using CopaFilmes.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -32,6 +33,7 @@ namespace CopaFilmes.ViewModels
 
 
         public DelegateCommand<Filmes> DeleteCmd { get; set; }
+        public DelegateCommand GerarCmd { get; set; }
 
         IService _service;
         IPageDialogService _pageDialogService;
@@ -45,6 +47,14 @@ namespace CopaFilmes.ViewModels
 
 
             DeleteCmd = new DelegateCommand<Filmes>(ExecuteDeleteCmd);
+            GerarCmd = new DelegateCommand(ExecuteGerarCmd);
+        }
+
+        private async void ExecuteGerarCmd()
+        {
+            var parametros = new NavigationParameters();
+            parametros.Add("filmes", Filmes);
+            await NavigationService.NavigateAsync($"{nameof(ResultadoPage)}", parametros);
         }
 
         private async void ExecuteDeleteCmd(Filmes obj)
@@ -70,6 +80,7 @@ namespace CopaFilmes.ViewModels
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    Filmes.Clear();
                     foreach (var filme in t.Result)
                         Filmes.Add(filme);
 
