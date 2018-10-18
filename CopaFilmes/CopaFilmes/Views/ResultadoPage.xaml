@@ -19,18 +19,18 @@
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
-            <StackLayout Grid.Column="0" BackgroundColor="#6e6e6e" Margin="0,0,-6,0">
-                <Label Text="1º" TextColor="White" FontSize="Large" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+            <StackLayout Grid.Column="0" Style="{StaticResource stkColocacoes}">
+                <Label Text="1º" Style="{StaticResource lblColocacoes}"/>
             </StackLayout>
-            <StackLayout Grid.Column="1" BackgroundColor="White" Padding="5">
-                <Label Text="{Binding FirstMoive.titulo}" FontSize="Medium" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+            <StackLayout Style="{StaticResource stkPrimeiroTitulo}">
+                <Label Text="{Binding FirstMovie.titulo}" Style="{StaticResource lblTitulo}"/>
             </StackLayout>
 
-            <StackLayout Grid.Column="0" Grid.Row="1" BackgroundColor="#6e6e6e" Margin="0,0,-6,0">
-                <Label Text="2º" TextColor="White" FontSize="Large" FontAttributes="Bold" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+            <StackLayout Grid.Column="0" Grid.Row="1" Style="{StaticResource stkColocacoes}">
+                <Label Text="2º" Style="{StaticResource lblColocacoes}"/>
             </StackLayout>
-            <StackLayout Grid.Column="1" Grid.Row="1" BackgroundColor="White" Padding="5">
-                <Label Text="{Binding SecondMovie.titulo}" FontSize="Medium" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"/>
+            <StackLayout Style="{StaticResource stkSegundoTitulo}">
+                <Label Text="{Binding SecondMovie.titulo}" Style="{StaticResource lblTitulo}"/>
             </StackLayout>
 
         </Grid>

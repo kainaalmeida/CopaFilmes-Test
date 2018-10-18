@@ -16,8 +16,20 @@ namespace CopaFilmes.ViewModels
             set { SetProperty(ref filmes, value); }
         }
 
-        public Filmes FirstMoive { get; set; }
-        public Filmes SecondMovie { get; set; }
+        private Filmes firstMovie;
+        public Filmes FirstMovie
+        {
+            get { return firstMovie; }
+            set { SetProperty(ref firstMovie, value); }
+        }
+
+        private Filmes secondMovie; 
+        public Filmes SecondMovie
+        {
+            get { return secondMovie; }
+            set { SetProperty(ref secondMovie, value); }
+        }
+
 
         public ResultadoPageViewModel(INavigationService navigationService)
             : base(navigationService)
@@ -92,24 +104,24 @@ namespace CopaFilmes.ViewModels
             Filmes.Clear();
             if (temp[0].nota > temp[1].nota)
             {
-                FirstMoive = temp[0];
+                FirstMovie = temp[0];
                 SecondMovie = temp[1];
             }
             else if (temp[0].nota < temp[1].nota)
             {
-                FirstMoive = temp[1];
+                FirstMovie = temp[1];
                 SecondMovie = temp[0];
             }
             else
             {
                 if (string.Compare(temp[0].titulo, temp[1].titulo) == -1)
                 {
-                    FirstMoive = temp[0];
+                    FirstMovie = temp[0];
                     SecondMovie = temp[1];
                 }
                 if (string.Compare(temp[0].titulo, temp[1].titulo) == 1)
                 {
-                    FirstMoive = temp[1];
+                    FirstMovie = temp[1];
                     SecondMovie = temp[0];
                 }
             }
