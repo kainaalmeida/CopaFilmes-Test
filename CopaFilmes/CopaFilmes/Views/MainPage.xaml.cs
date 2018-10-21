@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace CopaFilmes.Views
 {
@@ -12,6 +13,8 @@ namespace CopaFilmes.Views
 		public MainPage ()
 		{
 			InitializeComponent ();
-		}
+
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+        }
 	}
 }

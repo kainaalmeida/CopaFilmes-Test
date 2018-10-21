@@ -1,6 +1,7 @@
 ﻿using CopaFilmes.Models;
 using CopaFilmes.Services.Abstract;
 using CopaFilmes.Views;
+using Polly;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using Xamarin.Forms;
 
@@ -65,7 +67,7 @@ namespace CopaFilmes.ViewModels
                 SetMessage(Filmes.Count);
             }
             else
-               await _pageDialogService.DisplayAlertAsync("Aviso!","Você atingiu o número máximo de filmes removidos.","OK");
+                await _pageDialogService.DisplayAlertAsync("Aviso!", "Você atingiu o número máximo de filmes removidos.", "OK");
         }
 
         void SetMessage(int qtdFilmesSelecionados)
@@ -73,20 +75,44 @@ namespace CopaFilmes.ViewModels
             FilmesSelecionados = $"Selecionados {qtdFilmesSelecionados} de 8 Filmes";
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);
-            var filmes = _service.GetFilmes().ContinueWith(t =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    Filmes.Clear();
-                    foreach (var filme in t.Result)
-                        Filmes.Add(filme);
+            this.IsBusy = true;
 
-                    SetMessage(Filmes.Count);
+            await Policy
+                .Handle<HttpRequestException>()
+                .WaitAndRetryAsync
+                (
+                    retryCount: 5,
+                    sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+                )
+                .ExecuteAsync(async () => await _service.GetFilmes())
+                .ContinueWith(t =>
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        Filmes.Clear();
+                        foreach (var filme in t.Result)
+                            Filmes.Add(filme);
+
+                        SetMessage(Filmes.Count);
+                        this.IsBusy = false;
+                    });
                 });
-            });
+
+            //var filmes = _service.GetFilmes().ContinueWith(t =>
+            //{
+            //    Device.BeginInvokeOnMainThread(() =>
+            //    {
+            //        Filmes.Clear();
+            //        foreach (var filme in t.Result)
+            //            Filmes.Add(filme);
+
+            //        SetMessage(Filmes.Count);
+            //        this.IsBusy = false;
+            //    });
+            //});
 
         }
     }

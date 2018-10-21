@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              x:Class="CopaFilmes.Views.MainPage"
              Title="Fase de Seleção">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding GerarCmd}" Text="Gerar"/>
     </ContentPage.ToolbarItems>
-   
+
     <ContentPage.Content>
 
         <Grid RowSpacing="0">
@@ -17,7 +18,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>            
+            </Grid.RowDefinitions>
 
             <StackLayout BackgroundColor="#a8a8a8" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="0" Padding="10">
                 <Label Text="{Binding FilmesSelecionados}" HorizontalTextAlignment="Center" TextColor="#ffffff" FontAttributes="Bold"/>
@@ -43,8 +44,20 @@
                 </ListView.ItemTemplate>
             </ListView>
 
+            <forms:AnimationView 
+	            x:Name="animationView" 
+                IsVisible="{Binding IsBusy}"
+                IsEnabled="{Binding IsBusy}"
+	            Grid.RowSpan="2"
+                Grid.Column="0"
+	            Animation="movie_loading.json" 
+	            Loop="true" 
+	            AutoPlay="true"
+	            VerticalOptions="FillAndExpand" 
+	            HorizontalOptions="FillAndExpand" />
         </Grid>
-        
+
+
     </ContentPage.Content>
 
 </ContentPage>

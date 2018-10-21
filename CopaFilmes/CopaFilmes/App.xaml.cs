@@ -6,6 +6,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using CopaFilmes.Services.Abstract;
 using CopaFilmes.Services.Implements;
+using Xamarin.Essentials;
+using CopaFilmes.Utils;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CopaFilmes
@@ -27,12 +29,28 @@ namespace CopaFilmes
 
             InitializeComponent();
 
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
+        }
+
+        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess == NetworkAccess.Internet)
+            {
+                VerifyConnection.IsConnected = true;
+                Xamarin.Forms.DependencyService.Get<IToastService>().DisplayMessage("Conectado.");
+            }
+            else
+            {
+                VerifyConnection.IsConnected = false;
+                Xamarin.Forms.DependencyService.Get<IToastService>().DisplayMessage("Sem conexão.");
+            }
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<IService,Service>();
+            containerRegistry.Register<IService, Service>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ResultadoPage, ResultadoPageViewModel>();
