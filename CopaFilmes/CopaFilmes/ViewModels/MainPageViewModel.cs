@@ -1,17 +1,14 @@
 ﻿using CopaFilmes.Models;
 using CopaFilmes.Services.Abstract;
+using CopaFilmes.Utils;
 using CopaFilmes.Views;
 using Polly;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using Xamarin.Forms;
 
 namespace CopaFilmes.ViewModels
@@ -82,9 +79,8 @@ namespace CopaFilmes.ViewModels
 
             await Policy
                 .Handle<HttpRequestException>()
-                .WaitAndRetryAsync
+                .WaitAndRetryForeverAsync
                 (
-                    retryCount: 5,
                     sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
                 )
                 .ExecuteAsync(async () => await _service.GetFilmes())
@@ -93,27 +89,12 @@ namespace CopaFilmes.ViewModels
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         Filmes.Clear();
-                        foreach (var filme in t.Result)
-                            Filmes.Add(filme);
+                        Filmes.AddRange(t.Result);
 
                         SetMessage(Filmes.Count);
                         this.IsBusy = false;
                     });
                 });
-
-            //var filmes = _service.GetFilmes().ContinueWith(t =>
-            //{
-            //    Device.BeginInvokeOnMainThread(() =>
-            //    {
-            //        Filmes.Clear();
-            //        foreach (var filme in t.Result)
-            //            Filmes.Add(filme);
-
-            //        SetMessage(Filmes.Count);
-            //        this.IsBusy = false;
-            //    });
-            //});
-
         }
     }
 }
