@@ -75,6 +75,10 @@ namespace CopaFilmes.ViewModels
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);
+
+            if (!VerifyConnection.GetConnectionStatus())
+                Xamarin.Forms.DependencyService.Get<IToastService>().DisplayMessage("Sem conexão.");
+
             this.IsBusy = true;
 
             await Policy
