@@ -39,6 +39,9 @@
             <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
         </Style>
 
-
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarTextColor" Value="White"/>
+        </Style>
+        
     </Application.Resources>
 </prism:PrismApplication>
