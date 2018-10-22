@@ -23,6 +23,23 @@ namespace CopaFilmes.ViewModels
             set { SetProperty(ref filmes, value); }
         }
 
+        private bool enableButton;
+        public bool EnableButton
+        {
+            get { return enableButton; }
+            set
+            {
+                SetProperty(ref enableButton, value);
+                if (EnableButton)
+                {
+                    RaisePropertyChanged();
+                    GerarCmd.RaiseCanExecuteChanged();
+                }
+                GerarCmd.RaiseCanExecuteChanged();
+            }
+        }
+
+
         private string filmesSelecionados;
         public string FilmesSelecionados
         {
@@ -46,8 +63,10 @@ namespace CopaFilmes.ViewModels
 
 
             DeleteCmd = new DelegateCommand<Filmes>(ExecuteDeleteCmd);
-            GerarCmd = new DelegateCommand(ExecuteGerarCmd);
+            GerarCmd = new DelegateCommand(ExecuteGerarCmd, GerarCmdCanExecute);
         }
+
+        private bool GerarCmdCanExecute() => EnableButton;
 
         private async void ExecuteGerarCmd()
         {
@@ -70,6 +89,7 @@ namespace CopaFilmes.ViewModels
         void SetMessage(int qtdFilmesSelecionados)
         {
             FilmesSelecionados = $"Selecionados {qtdFilmesSelecionados} de 8 Filmes";
+            EnableButton = qtdFilmesSelecionados == 8 ? true : false;
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
@@ -96,7 +116,7 @@ namespace CopaFilmes.ViewModels
                         Filmes.AddRange(t.Result);
 
                         SetMessage(Filmes.Count);
-                        this.IsBusy = false;
+                        this.IsBusy = false;                        
                     });
                 });
         }
