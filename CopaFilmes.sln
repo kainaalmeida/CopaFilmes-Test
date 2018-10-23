@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopaFilmes", "CopaFilmes\CopaFilmes\CopaFilmes.csproj", "{80C71737-431A-4FF7-A8F5-D238B74AF70E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopaFilmes", "CopaFilmes\CopaFilmes\CopaFilmes.csproj", "{80C71737-431A-4FF7-A8F5-D238B74AF70E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopaFilmes.Android", "CopaFilmes\CopaFilmes.Android\CopaFilmes.Android.csproj", "{7DA6C341-25ED-4E9A-AAC0-EB37D34E7B46}"
 EndProject

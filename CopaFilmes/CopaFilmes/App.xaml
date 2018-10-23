@@ -5,6 +5,33 @@
              x:Class="CopaFilmes.App">
     <Application.Resources>
 
+        <!-- MAIN PAGE -->
+
+        <Style x:Key="stkCount" TargetType="StackLayout">
+            <Setter Property="BackgroundColor" Value="#a8a8a8"/>
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="Grid.Column" Value="0"/>
+            <Setter Property="Grid.Row" Value="0"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <Style x:Key="lblFilmesSelecionados" TargetType="Label">
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="TextColor" Value="#ffffff"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="lblTituloMP" TargetType="Label">
+            <Setter Property="TextColor" Value="#737373"/>
+            <Setter Property="FontSize" Value="Small"/>
+            <Setter Property="FontAttributes" Value="Bold"/>            
+        </Style>
+
+        <!-- MAIN PAGE -->
+
+        <!-- RESULTADO PAGE -->
+        
         <Style x:Key="stkColocacoes" TargetType="StackLayout">
             <Setter Property="BackgroundColor" Value="#6e6e6e"/>
             <Setter Property="Margin" Value="0,0,-6,0"/>
@@ -38,10 +65,16 @@
             <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
             <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
         </Style>
+        
+        <!-- RESULTADO PAGE -->
 
+        <!-- NAVIGATION PAGE -->
+        
         <Style TargetType="NavigationPage">
             <Setter Property="BarTextColor" Value="White"/>
         </Style>
-        
+
+        <!-- NAVIGATION PAGE -->
+
     </Application.Resources>
 </prism:PrismApplication>
