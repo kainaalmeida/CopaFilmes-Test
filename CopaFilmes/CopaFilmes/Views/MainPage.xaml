@@ -33,7 +33,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Command="{Binding Path=BindingContext.DeleteCmd, Source={x:Reference Name=myList}}" CommandParameter="{Binding .}" Text="Remover"/>
+                                <MenuItem Command="{Binding Path=BindingContext.DeleteCmd, Source={x:Reference Name=myList}}" CommandParameter="{Binding .}" Text="Remover" IsDestructive="True"/>
                             </ViewCell.ContextActions>
                             <StackLayout Orientation="Vertical" Padding="10">
                                 <Label TextColor="#737373" FontSize="Small" FontAttributes="Bold" Text="{Binding titulo}"/>

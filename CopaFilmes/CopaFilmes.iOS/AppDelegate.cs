@@ -27,7 +27,6 @@ namespace CopaFilmes.iOS
             LoadApplication(new App(new iOSInitializer()));
 
             UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(110, 110, 110);
-
             return base.FinishedLaunching(app, options);
         }
     }
