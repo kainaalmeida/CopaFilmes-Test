@@ -4,7 +4,7 @@ Para o desenvolvimento de aplicativo foi utilizado os seguintes plugins:
 
 Xamarin.LiveReload: Para acompanhar a alteração das telas em tempo real nos emuladores.
 
-Polly: Prove uma estrutura para que possa ser possível utilizar de resiliência no app.
+Polly: Prove uma estrutura para que seja possível utilizar de resiliência no app.
 
 Xamarin.Essentials: Conjunto de plugins disponibilizados pela Microsoft. Neste projeto foi utilizado somente o plugin de conectividade que o Xamarin.Essentials fornece.
 
